@@ -1,0 +1,25 @@
+one:
+  numero: SEFIN-RO-2026-0101
+  contribuinte: Comercial Porto Velho Ltda.
+  cpf_cnpj: 11.111.111/0001-11
+  natureza: Revisão de lançamento
+  setor: Fiscalização
+  status: Em análise
+  prioridade: Alta
+  valor_estimado: 1200.50
+  aberto_em: 2026-07-01
+  prazo_em: 2026-07-20
+  resumo: Conferência de lançamento fiscal em aberto.
+
+two:
+  numero: SEFIN-RO-2026-0102
+  contribuinte: Ariquemes Serviços ME
+  cpf_cnpj: 22.222.222/0001-22
+  natureza: Parcelamento de débito
+  setor: Arrecadação
+  status: Aguardando documentos
+  prioridade: Média
+  valor_estimado: 3400.00
+  aberto_em: 2026-07-02
+  prazo_em: 2026-07-22
+  resumo: Processo aguardando envio de documentação.

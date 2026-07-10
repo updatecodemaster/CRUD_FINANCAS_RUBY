@@ -1,0 +1,100 @@
+<% content_for :title, "Processos fiscais" %>
+
+<section class="page-heading">
+  <div>
+    <span class="eyebrow">Controle fiscal</span>
+    <h1>Processos fiscais</h1>
+    <p>Acompanhamento de solicitações tributárias recebidas pela triagem.</p>
+  </div>
+
+  <%= link_to "Novo processo", new_processo_path, class: "btn btn-primary" %>
+</section>
+
+<section class="metric-grid" aria-label="Resumo da fila">
+  <article class="metric-card">
+    <span>Total</span>
+    <strong><%= @total_processos %></strong>
+    <small>processos cadastrados</small>
+  </article>
+
+  <article class="metric-card">
+    <span>Em análise</span>
+    <strong><%= @em_analise %></strong>
+    <small>aguardando parecer</small>
+  </article>
+
+  <article class="metric-card">
+    <span>Vencidos</span>
+    <strong><%= @vencidos %></strong>
+    <small>fora do prazo</small>
+  </article>
+
+  <article class="metric-card">
+    <span>Valor estimado</span>
+    <strong><%= number_to_currency(@valor_total, unit: "R$ ", separator: ",", delimiter: ".") %></strong>
+    <small>somatório dos registros</small>
+  </article>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2>Fila de atendimento</h2>
+      <p><%= pluralize(@processos.size, "registro encontrado", "registros encontrados") %></p>
+    </div>
+
+    <%= form_with url: processos_path, method: :get, class: "filters" do |form| %>
+      <%= form.search_field :q, value: @termo, placeholder: "Número, contribuinte ou CPF/CNPJ", class: "form-control" %>
+      <%= select_tag :status, options_for_select([["Todos os status", ""]] + Processo::STATUS.map { |status| [status, status] }, @status_atual), class: "form-control" %>
+      <%= form.submit "Filtrar", class: "btn btn-secondary" %>
+      <%= link_to "Limpar", processos_path, class: "btn btn-ghost" %>
+    <% end %>
+  </div>
+
+  <% if @processos.any? %>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Contribuinte</th>
+            <th>Natureza</th>
+            <th>Status</th>
+            <th>Prioridade</th>
+            <th>Prazo</th>
+            <th class="text-end">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @processos.each do |processo| %>
+            <tr>
+              <td>
+                <%= link_to processo.numero, processo, class: "table-link" %>
+                <small><%= processo.cpf_cnpj %></small>
+              </td>
+              <td><%= processo.contribuinte %></td>
+              <td><%= processo.natureza %></td>
+              <td><span class="<%= status_badge_class(processo.status) %>"><%= processo.status %></span></td>
+              <td><span class="<%= prioridade_badge_class(processo.prioridade) %>"><%= processo.prioridade %></span></td>
+              <td class="<%= 'danger-text' if processo.vencido? %>">
+                <%= data_curta(processo.prazo_em) %>
+                <small><%= processo.prazo_humano %></small>
+              </td>
+              <td class="row-actions text-end">
+                <%= link_to "Ver", processo, class: "btn btn-small btn-ghost" %>
+                <%= link_to "Editar", edit_processo_path(processo), class: "btn btn-small btn-secondary" %>
+                <%= button_to "Excluir", processo, method: :delete, class: "btn btn-small btn-danger", data: { turbo_confirm: "Remover este processo?" } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h3>Nenhum processo localizado</h3>
+      <p>Revise os filtros ou cadastre um novo atendimento fiscal.</p>
+      <%= link_to "Cadastrar processo", new_processo_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>

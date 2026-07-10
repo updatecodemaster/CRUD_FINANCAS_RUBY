@@ -1,0 +1,58 @@
+<div id="<%= dom_id processo %>" class="process-detail">
+  <div class="detail-grid">
+    <div class="detail-item">
+      <span>Número</span>
+      <strong><%= processo.numero %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Contribuinte</span>
+      <strong><%= processo.contribuinte %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>CPF/CNPJ</span>
+      <strong><%= processo.cpf_cnpj %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Natureza</span>
+      <strong><%= processo.natureza %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Setor responsável</span>
+      <strong><%= processo.setor %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Status</span>
+      <strong><span class="<%= status_badge_class(processo.status) %>"><%= processo.status %></span></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Prioridade</span>
+      <strong><span class="<%= prioridade_badge_class(processo.prioridade) %>"><%= processo.prioridade %></span></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Valor estimado</span>
+      <strong><%= number_to_currency(processo.valor_estimado, unit: "R$ ", separator: ",", delimiter: ".") %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Data de abertura</span>
+      <strong><%= data_curta(processo.aberto_em) %></strong>
+    </div>
+
+    <div class="detail-item">
+      <span>Prazo de resposta</span>
+      <strong class="<%= 'danger-text' if processo.vencido? %>"><%= data_curta(processo.prazo_em) %></strong>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <span>Resumo</span>
+    <p><%= processo.resumo.presence || "Sem observações registradas." %></p>
+  </div>
+</div>

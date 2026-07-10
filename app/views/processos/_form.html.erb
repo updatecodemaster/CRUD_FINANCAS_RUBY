@@ -1,0 +1,75 @@
+<%= form_with(model: processo) do |form| %>
+  <% if processo.errors.any? %>
+    <div class="error-box">
+      <h2>Revise os campos abaixo</h2>
+
+      <ul>
+        <% processo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-grid">
+    <div class="field">
+      <%= form.label :numero, "Número do processo" %>
+      <%= form.text_field :numero, class: "form-control", placeholder: "Gerado automaticamente se ficar em branco" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :contribuinte, "Contribuinte" %>
+      <%= form.text_field :contribuinte, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :cpf_cnpj, "CPF/CNPJ" %>
+      <%= form.text_field :cpf_cnpj, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :natureza, "Natureza" %>
+      <%= form.select :natureza, Processo::NATUREZAS, { prompt: "Selecione" }, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :setor, "Setor responsável" %>
+      <%= form.select :setor, Processo::SETORES, { prompt: "Selecione" }, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :status, "Status" %>
+      <%= form.select :status, Processo::STATUS, {}, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :prioridade, "Prioridade" %>
+      <%= form.select :prioridade, Processo::PRIORIDADES, {}, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :valor_estimado, "Valor estimado" %>
+      <%= form.number_field :valor_estimado, step: "0.01", min: 0, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :aberto_em, "Data de abertura" %>
+      <%= form.date_field :aberto_em, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :prazo_em, "Prazo de resposta" %>
+      <%= form.date_field :prazo_em, class: "form-control" %>
+    </div>
+
+    <div class="field field-full">
+      <%= form.label :resumo, "Resumo" %>
+      <%= form.textarea :resumo, rows: 5, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Cancelar", processos_path, class: "btn btn-ghost" %>
+    <%= form.submit processo.persisted? ? "Salvar alterações" : "Cadastrar processo", class: "btn btn-primary" %>
+  </div>
+<% end %>

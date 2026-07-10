@@ -1,0 +1,15 @@
+<% content_for :title, "Editar processo" %>
+
+<section class="page-heading compact">
+  <div>
+    <span class="eyebrow">Atualização</span>
+    <h1>Editar processo fiscal</h1>
+    <p><%= @processo.numero %> - <%= @processo.contribuinte %></p>
+  </div>
+
+  <%= link_to "Voltar", @processo, class: "btn btn-ghost" %>
+</section>
+
+<section class="panel form-panel">
+  <%= render "form", processo: @processo %>
+</section>

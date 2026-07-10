@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    models:
+      processo: Processo
+    attributes:
+      processo:
+        numero: Número do processo
+        contribuinte: Contribuinte
+        cpf_cnpj: CPF/CNPJ
+        natureza: Natureza
+        setor: Setor
+        status: Status
+        prioridade: Prioridade
+        valor_estimado: Valor estimado
+        aberto_em: Data de abertura
+        prazo_em: Prazo de resposta
+        resumo: Resumo
+    errors:
+      messages:
+        blank: não pode ficar em branco
+        taken: já está em uso
+        inclusion: não está na lista permitida
+        greater_than_or_equal_to: deve ser maior ou igual a %{count}

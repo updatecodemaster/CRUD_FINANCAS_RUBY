@@ -1,0 +1,19 @@
+<% content_for :title, @processo.numero %>
+
+<section class="page-heading compact">
+  <div>
+    <span class="eyebrow">Detalhes do processo</span>
+    <h1><%= @processo.numero %></h1>
+    <p><%= @processo.contribuinte %></p>
+  </div>
+
+  <div class="page-actions">
+    <%= link_to "Voltar", processos_path, class: "btn btn-ghost" %>
+    <%= link_to "Editar", edit_processo_path(@processo), class: "btn btn-secondary" %>
+    <%= button_to "Excluir", @processo, method: :delete, class: "btn btn-danger", data: { turbo_confirm: "Remover este processo?" } %>
+  </div>
+</section>
+
+<section class="panel">
+  <%= render @processo %>
+</section>
